@@ -3,26 +3,39 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
+
+void signalHandler(int signum){
+    int status;
+    //printf("HHAHAHHAA no me matas \n");
+    //sleep(2);
+    wait(&status);
+    printf("mi hijo termino %d", status);
+}
+void controlC(){
+    printf("Contro c precionado");
+}
+
 int main(int argc, char **argv){
+    signal(17, signalHandler);
+    //signal(2, controlC);
 
     unsigned pid = fork();
     if(pid == 0){
-        char *newargv[] = {NULL};
-        char *newargve[] = {NULL};
-        newargv[0] = argv[1];
+        sleep(5);
         printf("Soy el proceso hijo\n");
         //execve(argv[1],newargv,newargve);
-        execv(argv[1],&argv[1]);
+        //execv(argv[1],&argv[1]);
         return 10;
     }else{
-        int status;
+        
+        sleep(2);
         printf("Soy el proceso padre y mi hijo es %u\n",pid);
-        //Hciendo su chamba 
         while(1){
+            //Aqui llegan nuevas peticiones
             sleep(2);
             printf("trabajando \n");
         }
-        printf("Termindnado despues del hijo y el estatus es %d\n", status);
+        
     }
    printf("Hola mundo\n"); 
     return 0;

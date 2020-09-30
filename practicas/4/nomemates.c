@@ -8,7 +8,7 @@ void signalHandler(int signum){
 
 
 int main(){
-    signal(15, signalHandler);
+    signal(17, signalHandler);
     while(1){
         sleep(2);
         printf("Trabajando \n");
